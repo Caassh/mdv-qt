@@ -14,9 +14,11 @@ echo "MDV-Qt Build Script"
 echo "=================="
 
 # Check if Qt6 is installed
-if ! command -v qmake6 &> /dev/null && ! command -v qmake-qt6 &> /dev/null; then
+if ! command -v qmake6 &> /dev/null && ! command -v qmake-qt6 &> /dev/null && ! pkg-config Qt6Core &> /dev/null; then
     echo "Qt6 development tools not found!"
-    echo "Please install Qt6 with: sudo pacman -S qt6-base qt6-tools qt6-webengine"
+    echo "Please install Qt6 with required components:"
+    echo "  Arch: sudo pacman -S qt6-base qt6-tools qt6-webengine qt6-declarative"
+    echo "  Ubuntu: sudo apt install qt6-base-dev qt6-base-dev-tools qtwebengine6-dev qtwebengine6-data"
     exit 1
 fi
 
