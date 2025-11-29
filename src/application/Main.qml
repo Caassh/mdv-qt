@@ -95,16 +95,49 @@ ApplicationWindow {
             }
         }
         
-        // Main Content Area - Tabs
-        TabView {
-            id: tabView
+        // Main Content Area
+        Item {
+            id: tabAreaView
             SplitView.fillWidth: true
-            tabBar: TabBar {
-                id: tabbar
-                background: Rectangle {
-                    color: "#f0f0f0"
+
+            // Simple tab implementation
+            Row {
+                id: tabBar
+                width: parent.width
+                height: 30
+                spacing: 1
+
+                // This would be populated dynamically in a real implementation
+                Rectangle {
+                    width: 100
+                    height: 30
+                    color: "#ffffff"
                     border.color: "#e0e0e0"
                     border.width: 1
+                    Text {
+                        anchors.centerIn: parent
+                        text: "Document.md"
+                        color: "#2c3e50"
+                    }
+                }
+            }
+
+            // Content area
+            Item {
+                anchors.top: tabBar.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+
+                // Default content - simple text area for now
+                TextArea {
+                    id: defaultEditor
+                    anchors.fill: parent
+                    text: "# Welcome to MDV-Qt\n\nYour markdown viewer application.\n\nOpen a .md file from the file explorer to get started."
+                    font.family: "Monospace"
+                    font.pixelSize: 14
+                    selectByMouse: true
+                    wrapMode: TextArea.Wrap
                 }
             }
         }

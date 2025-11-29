@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QtQml>
+#include <QDebug>
 
 #include "core/DocumentManager.h"
 #include "core/FileExplorerModel.h"
@@ -50,11 +51,15 @@ int main(int argc, char *argv[])
     const QUrl url(QStringLiteral("qrc:/src/application/Main.qml"));
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreationFailed, &app,
-        []() { QCoreApplication::exit(-1); },
+        [](const QUrl &url) {
+            qDebug() << "Failed to load QML file:" << url;
+            QCoreApplication::exit(-1);
+        },
         Qt::QueuedConnection);
     engine.load(url);
 
     if (engine.rootObjects().isEmpty()) {
+        qDebug() << "No root objects created";
         return -1;
     }
 

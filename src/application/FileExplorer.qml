@@ -1,6 +1,9 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
+
+// Keep Labs for file dialogs that are still needed
 import Qt.labs.platform as Labs
 
 Item {

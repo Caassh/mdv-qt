@@ -2,7 +2,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtWebEngine
 
 Item {
     id: markdownEditor
@@ -143,17 +142,25 @@ Item {
             Layout.fillHeight: true
             
             // View-only mode (formatted display)
-            WebEngineView {
-                id: viewOnlyWebView
+            ScrollView {
+                id: viewOnlyScrollView
                 anchors.fill: parent
-                url: "data:text/html," + contentAsHtml
                 visible: markdownEditor.isViewMode
-                
-                // Double-click to enter edit mode
-                MouseArea {
-                    anchors.fill: parent
-                    onDoubleClicked: {
-                        markdownEditor.currentMode = 1  // Switch to edit mode
+
+                Text {
+                    id: viewOnlyText
+                    text: contentAsHtml
+                    textFormat: Text.RichText
+                    wrapMode: Text.Wrap
+                    font.family: "sans-serif"
+                    font.pixelSize: 14
+                    color: "#2c3e50"
+                    // Double-click to enter edit mode
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                            markdownEditor.currentMode = 1  // Switch to edit mode
+                        }
                     }
                 }
             }
@@ -219,9 +226,14 @@ Item {
                     SplitView.fillWidth: true
                     SplitView.minimumWidth: 200
                     
-                    WebEngineView {
-                        id: splitPreviewWebView
-                        url: "data:text/html," + contentAsHtml
+                    Text {
+                        id: splitPreviewText
+                        text: contentAsHtml
+                        textFormat: Text.RichText
+                        wrapMode: Text.Wrap
+                        font.family: "sans-serif"
+                        font.pixelSize: 14
+                        color: "#2c3e50"
                     }
                 }
             }
