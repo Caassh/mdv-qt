@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/application/Main.qml</file>
+        <file>src/application/FileExplorer.qml</file>
+        <file>src/application/TabManager.qml</file>
+        <file>src/application/MarkdownEditor.qml</file>
+        <file>src/application/TreeItemDelegate.qml</file>
+        <file>src/application/RichTextEditor.qml</file>
+        <file>src/application/StyledButton.qml</file>
+        <file>src/application/StyledToolBar.qml</file>
+        <file>src/application/DocumentHierarchyView.qml</file>
+    </qresource>
+</RCC>

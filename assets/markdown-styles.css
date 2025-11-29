@@ -1,0 +1,171 @@
+/* iOS-7 inspired CSS for markdown rendering */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.3em;
+    margin-top: 1.2em;
+    margin-bottom: 0.8em;
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 0.8em;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-top: 1em;
+}
+
+h3 {
+    font-size: 1.25em;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #724f97; /* iOS-7 purple accent */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    background-color: #f8f9fa;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    color: #e74c3c; /* Red for code elements */
+}
+
+pre {
+    background-color: #f8f9fa;
+    padding: 1em;
+    border-radius: 4px;
+    overflow: auto;
+    border: 1px solid #e0e0e0;
+    margin: 1em 0;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+}
+
+blockquote {
+    border-left: 4px solid #724f97; /* iOS-7 purple accent */
+    padding-left: 1em;
+    margin-left: 0;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    padding: 0.5em 1em;
+    border-radius: 0 4px 4px 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 1em auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    background-color: #ffffff;
+}
+
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 0.5em 1em;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+ul, ol {
+    padding-left: 2em;
+    margin: 1em 0;
+}
+
+li {
+    margin: 0.25em 0;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 1.5em 0;
+}
+
+/* Task list items */
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item input[type="checkbox"] {
+    margin-right: 0.5em;
+}
+
+/* Code block styling */
+.code-block {
+    position: relative;
+    border-radius: 4px;
+}
+
+.code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e9ecef;
+    padding: 0.5em 1em;
+    border-radius: 4px 4px 0 0;
+    font-size: 0.85em;
+    color: #6c757d;
+}
+
+.code-block-content {
+    border-top: none !important;
+    border-radius: 0 0 4px 4px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.6em;
+    }
+    
+    h2 {
+        font-size: 1.4em;
+    }
+    
+    h3 {
+        font-size: 1.2em;
+    }
+}
