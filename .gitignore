@@ -1,0 +1,72 @@
+# Build directories
+build/
+cmake-build-*/
+
+# Qt specific
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qmlc
+*.jsc
+qmlcache/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+.gitgnore
+
+# Logs
+*.log
+*.out
+
+# Binaries
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Qt application specific
+*.qm
+*.qm~
+*.autosave
+
+# Artifacts
+*.dmg
+*.app
+*.deb
+*.rpm
+*.msi
+*.zip
+*.tar.gz
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# User-specific settings
+settings.json
+config.json
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
