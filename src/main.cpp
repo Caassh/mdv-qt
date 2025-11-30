@@ -1,5 +1,5 @@
 // main.cpp
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDir>
@@ -13,10 +13,11 @@
 #include "core/EditorManager.h"
 #include "core/ThemeManager.h"
 #include "core/DocumentLinker.h"
+#include "core/PdfExporter.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     // Set application properties
     app.setApplicationName("MDV-Qt");
@@ -33,6 +34,7 @@ int main(int argc, char *argv[])
     EditorManager *editorManager = new EditorManager(&app);
     ThemeManager *themeManager = new ThemeManager(&app);
     DocumentLinker *documentLinker = new DocumentLinker(&app);
+    PdfExporter *pdfExporter = new PdfExporter(&app);
 
     // Set up file system model
     fileSystemModel->setRootPath(QDir::homePath());
@@ -46,6 +48,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("editorManager", editorManager);
     engine.rootContext()->setContextProperty("themeManager", themeManager);
     engine.rootContext()->setContextProperty("documentLinker", documentLinker);
+    engine.rootContext()->setContextProperty("pdfExporter", pdfExporter);
     
     // Load the main QML file
     const QUrl url(QStringLiteral("qrc:/src/application/Main.qml"));

@@ -6,24 +6,36 @@ Item {
     id: treeItemDelegate
     width: parent ? parent.width : 0
     height: 32
-    
+
     property var modelData: null
     property var fileSystemModel: null
-    
+    property bool isCurrentItem: false
+    property int itemIndex: -1
+    property var listView: null  // Reference to the parent ListView
+
+    signal clicked(var mouse)
+    signal pressAndHold(var mouse)
+
     Rectangle {
         id: background
         anchors.fill: parent
-        color: ListView.isCurrentItem ? "#f0f0f0" : "transparent"
+        color: treeItemDelegate.isCurrentItem ? "#f0f0f0" : "transparent"
         border.color: "#e0e0e0"
-        
+
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
             propagateComposedEvents: true
-            
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+
             onClicked: {
-                ListView.view.currentIndex = index
-                mouse.accepted = false
+                treeItemDelegate.clicked(mouse);
+                mouse.accepted = true;
+            }
+
+            onPressAndHold: {
+                treeItemDelegate.pressAndHold(mouse);
+                mouse.accepted = true;
             }
         }
     }
@@ -42,7 +54,7 @@ Item {
             
             Text {
                 anchors.centerIn: parent
-                text: ListView.view.isExpanded(index) ? "▼" : "▶"
+                text: treeItemDelegate.listView && treeItemDelegate.listView.isExpanded(treeItemDelegate.itemIndex) ? "▼" : "▶"
                 font.pixelSize: 10
                 color: "#666666"
             }
@@ -51,10 +63,10 @@ Item {
                 anchors.fill: parent
                 visible: parent.visible
                 onClicked: {
-                    if (ListView.view.isExpanded(index)) {
-                        ListView.view.collapse(index)
+                    if (treeItemDelegate.listView && treeItemDelegate.listView.isExpanded(treeItemDelegate.itemIndex)) {
+                        treeItemDelegate.listView.collapse(treeItemDelegate.itemIndex)
                     } else {
-                        ListView.view.expand(index)
+                        treeItemDelegate.listView.expand(treeItemDelegate.itemIndex)
                     }
                 }
             }
@@ -62,10 +74,10 @@ Item {
         
         Image {
             id: icon
-            source: modelData.isFolder ? 
-                   (ListView.view.isExpanded(index) ? 
-                       "qrc:/icons/folder-open.svg" : "qrc:/icons/folder.svg") : 
-                   (fileSystemModel.isMarkdownFile(modelData.filePath) ? 
+            source: modelData.isFolder ?
+                   (treeItemDelegate.listView && treeItemDelegate.listView.isExpanded(treeItemDelegate.itemIndex) ?
+                       "qrc:/icons/folder-open.svg" : "qrc:/icons/folder.svg") :
+                   (fileSystemModel.isMarkdownFile(modelData.filePath) ?
                        "qrc:/icons/markdown.svg" : "qrc:/icons/document.svg")
             width: 16
             height: 16
@@ -92,6 +104,6 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.margins: 2
         color: "#724f97" // iOS-7 purple accent
-        visible: ListView.isCurrentItem
+        visible: treeItemDelegate.isCurrentItem
     }
 }

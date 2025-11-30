@@ -3,9 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
 
-// Keep Labs for file dialogs that are still needed
-import Qt.labs.platform as Labs
-
 Item {
     id: fileExplorer
     
@@ -120,11 +117,14 @@ Item {
                 // Custom delegate for tree items
                 delegate: TreeItemDelegate {
                     width: ListView.view.width
-                    highlighted: ListView.isCurrentItem
+                    isCurrentItem: ListView.isCurrentItem
+                    itemIndex: index
+                    listView: ListView.view
                     modelData: model
                     fileSystemModel: fileSystemModel
-                    
-                    onClicked: {
+
+                    onClicked: function(mouse) {
+                        ListView.view.currentIndex = index;
                         if (model.isFolder) {
                             // Expand/collapse folder
                             if (directoryTree.isExpanded(index)) {
@@ -139,8 +139,9 @@ Item {
                             }
                         }
                     }
-                    
-                    onPressAndHold: {
+
+                    onPressAndHold: function(mouse) {
+                        ListView.view.currentIndex = index;
                         // Show context menu
                         contextMenu.currentItem = model
                         contextMenu.popup()
@@ -212,12 +213,15 @@ Item {
     }
     
     // Dialog for creating new files
-    Labs.Dialog {
+    Dialog {
         id: newFileDialog
         title: "New File"
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
         width: 300
         height: 150
-        standardButtons: Labs.Dialog.Ok | Labs.Dialog.Cancel
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
         
         ColumnLayout {
             anchors.fill: parent
@@ -255,12 +259,15 @@ Item {
     }
     
     // Dialog for creating new folders
-    Labs.Dialog {
+    Dialog {
         id: newFolderDialog
         title: "New Folder"
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
         width: 300
         height: 150
-        standardButtons: Labs.Dialog.Ok | Labs.Dialog.Cancel
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
         
         ColumnLayout {
             anchors.fill: parent
@@ -297,12 +304,15 @@ Item {
     }
     
     // Dialog for renaming files
-    Labs.Dialog {
+    Dialog {
         id: renameDialog
         title: "Rename"
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
         width: 300
         height: 150
-        standardButtons: Labs.Dialog.Ok | Labs.Dialog.Cancel
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
         
         property string currentPath: ""
         
@@ -337,12 +347,15 @@ Item {
     }
     
     // Confirmation dialog for deletion
-    Labs.Dialog {
+    Dialog {
         id: deleteDialog
         title: "Confirm Delete"
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
         width: 400
         height: 150
-        standardButtons: Labs.Dialog.Ok | Labs.Dialog.Cancel
+
+        standardButtons: Dialog.Ok | Dialog.Cancel
         
         property string currentPath: ""
         

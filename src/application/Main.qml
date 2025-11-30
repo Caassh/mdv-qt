@@ -2,7 +2,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Qt.labs.platform as Labs
+import Qt.labs.platform as Labs  // For FileDialog
 
 ApplicationWindow {
     id: mainWindow
@@ -147,25 +147,27 @@ ApplicationWindow {
     Labs.FileDialog {
         id: fileDialog
         title: "Open Markdown File"
+        folder: Labs.StandardPaths.writableLocation(Labs.StandardPaths.DocumentsLocation)
         nameFilters: ["Markdown files (*.md *.markdown)", "All files (*)"]
-        onAccepted: documentManager.openDocument(fileUrl.toString().replace("file://", ""))
+        onAccepted: documentManager.openDocument(fileDialog.file.toString().replace("file://", ""))
+        onRejected: console.log("File open dialog closed")
     }
 
     // Save as dialog
     Labs.FileDialog {
         id: saveAsDialog
         title: "Save Markdown File As"
+        folder: Labs.StandardPaths.writableLocation(Labs.StandardPaths.DocumentsLocation)
         nameFilters: ["Markdown files (*.md *.markdown)", "All files (*)"]
-        selectExisting: false
-        onAccepted: documentManager.saveDocumentAs(fileUrl.toString().replace("file://", ""))
+        onAccepted: documentManager.saveDocumentAs(saveAsDialog.file.toString().replace("file://", ""))
+        onRejected: console.log("Save as dialog closed")
     }
     
     // Function to set editor mode
     function setEditorMode(mode) {
-        // This will be connected to the active editor tab
-        if (tabView.currentItem && tabView.currentItem.setEditorMode) {
-            tabView.currentItem.setEditorMode(mode);
-        }
+        // This will be connected to the active markdown editor
+        // For now, we'll just log the mode change
+        console.log("Setting editor mode to:", mode);
     }
     
     // Component for markdown document tabs

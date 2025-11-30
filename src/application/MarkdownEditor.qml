@@ -7,14 +7,13 @@ Item {
     id: markdownEditor
     
     signal fileOpened(string filePath)
-    signal contentChanged(string filePath, string content)
+    signal contentModified(string filePath, string content)
     
     // Properties
     property string filePath: ""
     property string content: ""
     property int currentMode: 0  // 0: View only, 1: Edit only, 2: Split view
     property alias showToolbar: toolbar.visible
-    property alias toolbarPosition: toolbar.anchors.verticalCenter
     
     // State for editor modes
     readonly property bool isViewMode: currentMode === 0
@@ -183,7 +182,7 @@ Item {
                     onTextChanged: {
                         if (markdownEditor.content !== text) {
                             markdownEditor.content = text
-                            contentChanged(markdownEditor.filePath, text)
+                            contentModified(markdownEditor.filePath, text)
                         }
                     }
                 }
@@ -214,7 +213,7 @@ Item {
                         onTextChanged: {
                             if (markdownEditor.content !== text) {
                                 markdownEditor.content = text
-                                contentChanged(markdownEditor.filePath, text)
+                                contentModified(markdownEditor.filePath, text)
                             }
                         }
                     }
